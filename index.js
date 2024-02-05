@@ -1,6 +1,7 @@
 const express = require("express");
 
 const app = express();
+app.use(express.json());
 
 app.get("/hello", (req, res) => {
   res.send("hello");
@@ -15,7 +16,13 @@ app.get("/numbers", (req, res) => {
   for (let i = 0; i <= 100; i++) {
     numbers += i + " - ";
   }
-  res.send(`You are visiting Hi: ${numbers}`);
+  //   res.send(`You are visiting Hi: ${numbers}`);
+
+  //   res.sendFile(__dirname + "/views/numbers.html");
+  res.render("numbers.ejs", {
+    name: "Karim",
+    numbers: numbers,
+  });
 });
 
 app.get("/findSummation/:num1/:num2", (req, res) => {
@@ -23,6 +30,18 @@ app.get("/findSummation/:num1/:num2", (req, res) => {
   const number2 = req.params.num2;
   console.log(req.params);
   res.send(`the number are ${+number1 + +number2}`);
+});
+
+app.get("/sayHello", (req, res) => {
+  //   console.log(req.query);
+  //   //   console.log(req.body);
+  //   res.send(`Hello ${req.body.name}, Age Is ${req.query.age}`);
+
+  res.json({
+    name: req.body.name,
+    age: req.query.age,
+    language: "Arabic",
+  });
 });
 
 app.put("/test", (req, res) => {
