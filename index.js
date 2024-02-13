@@ -1,7 +1,22 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const Article = require("./models/Article");
 
 const app = express();
 app.use(express.json());
+
+mongoose
+  .connect(
+    "mongodb+srv://karim:karim@cluster0.klmixfi.mongodb.net/?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    console.log("Connected Successfully");
+  })
+  .catch((error) => {
+    console.log("Error With Data The DB", error);
+  });
+
+// mongodb+srv://karim:<password>@cluster0.klmixfi.mongodb.net/?retryWrites=true&w=majority
 
 app.get("/hello", (req, res) => {
   res.send("hello");
