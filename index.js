@@ -70,6 +70,18 @@ app.delete("/testingDelete", (req, res) => {
   res.send("Visiting Delete Req");
 });
 
+// Articals End Point
+
+app.post("/articles", async (req, res) => {
+  const newArticle = new Article();
+  newArticle.title = "My New Article";
+  newArticle.body = "This Is The Body";
+  newArticle.numberOfLikes = 100;
+  await newArticle.save();
+
+  res.send("The New Article Has Been Stored!");
+});
+
 app.listen(3000, () => {
   console.log("I am Listening in port 3000");
 });
