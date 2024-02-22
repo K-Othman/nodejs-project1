@@ -74,12 +74,16 @@ app.delete("/testingDelete", (req, res) => {
 
 app.post("/articles", async (req, res) => {
   const newArticle = new Article();
-  newArticle.title = "My New Article";
-  newArticle.body = "This Is The Body";
-  newArticle.numberOfLikes = 100;
+
+  const artTitle = req.body.articleTitle;
+  const artBody = req.body.articleBody;
+
+  newArticle.title = artTitle;
+  newArticle.body = artBody;
+  newArticle.numberOfLikes = 0;
   await newArticle.save();
 
-  res.send("The New Article Has Been Stored!");
+  res.json(newArticle);
 });
 
 app.listen(3000, () => {
