@@ -71,6 +71,7 @@ app.delete("/testingDelete", (req, res) => {
 });
 
 // Articals End Point
+// POST
 
 app.post("/articles", async (req, res) => {
   const newArticle = new Article();
@@ -84,6 +85,24 @@ app.post("/articles", async (req, res) => {
   await newArticle.save();
 
   res.json(newArticle);
+});
+
+// GET ARTICLES
+app.get("/articles", async (req, res) => {
+  const articles = await Article.find();
+  res.json(articles);
+});
+
+// GET Specific Article
+app.get("/articles/:articleId", async (req, res) => {
+  const id = req.params.articleId;
+  try {
+    const article = await Article.findById(id);
+    return res.json(article);
+  } catch (error) {
+    console.log("Error while Loading");
+    return res.send("Article Does not exist");
+  }
 });
 
 app.listen(3000, () => {
